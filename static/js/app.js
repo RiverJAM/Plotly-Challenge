@@ -1,6 +1,6 @@
-// python -m http.server (This allows json from file)
+// python -m http.server (This allows json from file locally)
 
-//just get everything in initially
+
 
 // Use D3 fetch to read the JSON file
 // The data from the JSON file is arbitrarily named importedData as the argument
@@ -8,11 +8,6 @@ d3.json("samples.json").then((importedData) => {
     var DaddyData = importedData
     var meta = DaddyData.metadata
     
-    // function unpack(d, i) {
-    //     return d.map(function (d) {
-    //         return d[i];
-    //     });
-    // }
      //I looked to make sure that there were only 153 different samples, so i <153. 
      for (var i = 0; i < 153; i++) {
         d3.select("#selDataset").append("option")
@@ -26,7 +21,7 @@ d3.json("samples.json").then((importedData) => {
     init(importedData)
 });
 
-
+//just get everything in initially with the second data point chosen bc it is 1
 
 function init(importedData) {
     var DaddyData = importedData
@@ -121,24 +116,8 @@ function init(importedData) {
 };
 
 
-
-
-
-
-
-// function FixPlotly() {
-//     var dropdown_selection = d3.selectAll("#selDataset");
-//     var nam_drop = dropdown_selection.value;
-//     console.log("There has been a change");
-//     console.log(nam_drop)
-//     //charles in slack
-//     // var idData = sampleData.metadata.filter(m => m.id === testSubject);
-
-// };
-
-
 //boiler plate taken from day 2 activity 9
-// not only updates plotly but first metadata
+// not only updates plotly but first metadata is updated too
 function updatePlotly(importedData) {
     var dropdownMenu = d3.select("#selDataset").node();
     // Assign the dropdown menu option to a variable
@@ -221,6 +200,7 @@ function updatePlotly(importedData) {
     var layout2 = {
         xaxis: { OTU_ID },
         yaxis: { sample_sorted },
+        // used Plotly documentation online for this axis title but did not save link
         xaxis: {
             title: {
               text: 'OTU ID',
@@ -232,6 +212,7 @@ function updatePlotly(importedData) {
             },
           },
     };
+    // could not use restyle successfully but this gets the job done
     Plotly.newPlot("bar", data, layout);
     Plotly.newPlot("bubble", data2, layout2);
    
